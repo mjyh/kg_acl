@@ -15,7 +15,7 @@ numDevices = 20;
 deviceIDs = db.getDeviceIDs()
 deviceIDs = deviceIDs[:numDevices]
 print deviceIDs
-resultColumns = [ "mean1", "mean2", "std1", "std2", "p90_1", "p90_2", 'p10_1', 'p10_2' ];
+resultColumns = [ "mean1", "mean2", "std1", "std2", "p90_1", "p90_2", 'p10_1', 'p10_2', "x_mean_1", "x_mean_2", "x_std_1", "x_std_2" ];
 data = pd.DataFrame( index = deviceIDs, columns = resultColumns)
 
 for deviceID in deviceIDs:
@@ -47,6 +47,17 @@ for deviceID in deviceIDs:
     p10_1 = np.percentile( series1, 10 )
     p10_2 = np.percentile( series2, 10 )
     
+    x_series_all = rawData[ 'X' ]
+    halfway = x_series_all.shape[0]/2
+    x_series_1 = x_series_all[:halfway]
+    x_series_2 = x_series_all[halfway+1:]
+    
+    x_mean_1 = x_series_1.mean() 
+    x_mean_2 = x_series_2.mean() 
+    
+    x_std_1 = x_series_1.std() 
+    x_std_2 = x_series_2.std() 
+    
     data.at[ deviceID, 'mean1' ] = tdiff_mean1
     data.at[ deviceID, 'mean2' ] = tdiff_mean2
     data.at[ deviceID, 'std1' ] = std1
@@ -55,6 +66,11 @@ for deviceID in deviceIDs:
     data.at[ deviceID, 'p90_2' ] = p90_2
     data.at[ deviceID, 'p10_1' ] = p10_1
     data.at[ deviceID, 'p10_2' ] = p10_2
+    data.at[ deviceID, 'x_mean_1' ] = x_mean_1
+    data.at[ deviceID, 'x_mean_2' ] = x_mean_2
+    data.at[ deviceID, 'x_std_1' ] = x_std_1
+    data.at[ deviceID, 'x_std_2' ] = x_std_2
+    
     
     print "DONE! %.1f s\n" % ((time()-init))
     
@@ -63,8 +79,8 @@ print data
 #data = data[ data['X'] < 1e7 ]
 #data = data[ data['Y'] < 1e7 ]
 
-X1 = data[ "p90_1"]
-Y1 = data[ "p90_2" ]
+X1 = data[ "x_std_1"]
+Y1 = data[ "x_std_2" ]
 
 X2 = data[ "mean2"]
 Y2 = data[ "std2" ]

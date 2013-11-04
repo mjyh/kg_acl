@@ -1,5 +1,5 @@
 '''
-Create a histogram of certain raw data for a device, broken into samples
+For a particular device, takes samples, computes
 '''
 
 
@@ -39,10 +39,10 @@ for currentSectionNum in range(0, sections):
     currentEnd = currentEnd + linesPerSection
     
     plt.subplot( "22%d" % (currentSectionNum+1) )
-    hist = plt.hist(currentSeries, 40)
+    hist = plt.hist(currentSeries, 80)
     plt.title( "%s.%d" % (deviceID, currentSectionNum) )
     
-    allNumZeros.append( sum( currentSeries[ currentSeries<1 ] ) )
+    allNumZeros.append( sum( currentSeries<1 ) )
     allMeans.append( currentSeries.mean() )
     allStds.append( currentSeries.std() )
    

@@ -1,5 +1,5 @@
 '''
-Get Device IDs and save them into a CSV
+Get Device IDs out of SQL database and save them into a CSV
 '''
 
 

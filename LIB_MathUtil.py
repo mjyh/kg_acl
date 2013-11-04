@@ -4,6 +4,7 @@ Some utilities for computation
 
 import numpy as np
 import pandas as pd
+import math
 
 # Return a mean with highest/lowest data thrown out
 # Data is an numpy array
@@ -25,3 +26,12 @@ def trimOutliers( data, trim=10):
     upperBound = np.percentile(data, (100-trim))
     
     return data[ ( data >= lowerBound) & ( data <= upperBound ) ]
+
+### Retruend weighted std 
+#   From http://stackoverflow.com/questions/2413522/weighted-standard-deviation-in-numpy
+#   values and weights should be numpy nd arrays with the same shape
+
+def weighted_std(values, weights):
+    average = np.average(values, weights=weights)
+    variance = np.average((values-average)**2, weights=weights)  # Fast and numerically precise
+    return  math.sqrt(variance)

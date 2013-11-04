@@ -2,12 +2,16 @@
 Useful constants
 '''
 
+
 AccelDB = "C:/Users/Mike/Documents/Kaggle/Accelerometer/raw_data/accel"
 #AccelDB = "C:/Users/Mike/Documents/Kaggle/Accelerometer/accel_toy"
 
+
 TrainFeaturesFile = "C:/Users/Mike/Documents/Kaggle/Accelerometer/saved_data/train_features.csv"
 TestFeaturesFile = "C:/Users/Mike/Documents/Kaggle/Accelerometer/saved_data/test_features.csv"
+
 QuestionFile = "C:/Users/Mike/Documents/Kaggle/Accelerometer/saved_data/question_df.csv"
+
 DeviceIDFile = "C:/Users/Mike/Documents/Kaggle/Accelerometer/saved_data/deviceID.csv"
 SequenceIDFile = "C:/Users/Mike/Documents/Kaggle/Accelerometer/saved_data/SequenceID.csv"
 

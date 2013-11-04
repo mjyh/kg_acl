@@ -2,34 +2,19 @@
 
 Create the CV test questions and answers, put them into the Accel database
 
+NO LONGER USEFUL, CV testing data is created in LIB_CV
 '''
 
 
 import numpy as np
 import pandas as pd
-import numpy.random as rand
 
 from time import time
 
-import CONST_Accel as Const
-import CFG_SimilarDevice as SimDev
 import LIB_Database as db
-import pandas.io.sql
+import LIB_CV as cv
 
-def setupSimilarDevices():
-    for deviceID, similarDevices in SimDev.devices_clusters.iteritems():
-        if deviceID in similarDevices:
-            similarDevices.remove( deviceID )
-        
-### Returns a similar device to the given one, will not return the same deviceID back
-def getRandomSimilarDevice( deviceID ):
-    similarDevices = SimDev.devices_clusters[ deviceID ]
-    index = int( np.floor( rand.uniform( 0, len( similarDevices ) ) ) )
-    return similarDevices[ index ]
-    
-###
-
-setupSimilarDevices()
+cv.setupSimilarDevices()
 
 ### Consts
 
@@ -39,7 +24,8 @@ samplesPerSequence = 300
 
 saveToDB = False
 
-### For each device, get the raw data, use last 40% for CV, split into sequences of 300, and assign quiz devices
+### For each device, get the raw training data, break into 300-sample sequences, and turn each sequence into a question
+#   Updates the questions_cv table
 
 deviceIDs = db.getDeviceIDs()
 currentQuestionId = 1
